@@ -14,35 +14,49 @@ The purpose of this analysis is to generate summary statistics from the temperat
 ### Tables showing the summary statistics for the temperatures in a summer month (June), and a winter month (December).
 
 Month of June:
-(fig)
+
+![june_temp_stats](https://user-images.githubusercontent.com/71800628/122513338-e8739180-cfcf-11eb-9477-f8f475b213e9.png)
+
 
 Month of December:
-(fig)
+
+![dec_temp_stats](https://user-images.githubusercontent.com/71800628/122513409-03460600-cfd0-11eb-8f18-c789def34564.png)
+
 
 ## Analysis
 At first glance, we observe from the summary statistics that the average temperatures in both June and December are very similar.\
 However there are key differences too. These are highlighted by looking at the graphs plotted for the temperature data for June and December in Oahu. These graphs were analysis done beyond what the challenge instructions asked for, to understand the data better.
  
 1. Comparison of the Box-and-Whisker plots for June and December (refer to Fig. below):
+
+![Comparison_box_plot](https://user-images.githubusercontent.com/71800628/122513507-1953c680-cfd0-11eb-9926-0643d2c5c09d.png)
+
 We observe that the median temperature of June is higher than the interquartile range in December.\
 The interquartile range in December is slighly bigger than in June, and the number of outliers towards the lower temperatures is higher in December.\
 This implies that June may have higher temperatures for a longer period compared to December.
 
-2. Comparing histogram plots of temperature distribution for June and December:\
+
+2. Comparing histogram plots of temperature distribution for June and December:
 We observe that in December (Fig. below), the graph is symmetric around the peak of 72-73F. However we notice a sharp decline in number of counts as we move away from the peak, to almost half the value, and another sharp decline below 67F, and above 77F.\
 Most of the data is aggregated around the peak, which would also explain the greater number of outliers below the first quartile in the box and whisker plot.
-<Fig for december>
-In comparison, the temperature distribution in June (Fig. below) is also approximately bell shaped, with a peak around 76, and it gradually falls away on either side.\  
-Making the assumptions that temperatures are recorded at the same time every day throughout the year, this might imply that in December temperature changes occur much faster.\  
-Note however that number of counts in June (1700) is higher than the number of counts (1517) in December. More accurate conclusions can be drawn by knowning how the measurements were recorded in December and in June.
+
+![dec_temp_obs](https://user-images.githubusercontent.com/71800628/122513587-34bed180-cfd0-11eb-90fb-8c814a7ecef3.png)
+
+In comparison, the temperature distribution in June (Fig. below) is also approximately bell shaped, with a peak around 76, and it gradually falls away on either side.
+
+![june_temp_obs](https://user-images.githubusercontent.com/71800628/122513647-4acc9200-cfd0-11eb-88e3-1ea5a5db5418.png)
+
+Making the assumptions that temperatures are recorded at the same time every day throughout the year, this might imply that in December temperature changes occur much faster.    
+Note however that number of counts in June (1700) is higher than the number of counts (1517) in December. More accurate conclusions can be drawn if we knew how the measurements were recorded in December and in June.
+
 
 3. A quick query to obtain the count for temperatures above 70F in December returned 1036. (An example of the code is below.)
 ```
 dec_count = session.query(func.count(Measurement.tobs).filter(extract('month', Measurement.date) == '12').filter(Measurement.tobs >= 70.0)).all()
 print(dec_count)
 ```
-The same query for June returns 1611.\ 
-Making the assumption that the same number of measurments are taken everyday, the above numbers would imply that around 28 days in June record 70F or above, whereas 21 days in December recorded 70F or above. This implies that the whole month of June will experience ideal surfing temperatures as compared to just three weeks in December.
+The same query for June returns 1611.\
+Making the assumption that the same number of measurements are taken everyday, the above numbers would imply that around 28 days in June record 70F or above, whereas 21 days in December recorded 70F or above. This implies that the whole month of June will experience ideal surfing temperatures as compared to just three weeks in December.
 
 ## Summary 
 
@@ -50,7 +64,7 @@ As commented above, better conclusions can be drawn if the details of the record
 Purely from a temperature standpoint however, it appears that December has around three weeks of warm weather, and a surf and shake shop will flourish in the same manner as it would in June if the store manages it's inventory to serve enthusiastic surfers, taking into account the finer details about the changes in the weather.\
 For example, stocking appropriate wet-suits, and other accesories like boots, gloves, and hood, and offering warm drinks like hot chocolate along with icecreams and shakes.
 
-The following queries will help in better understanding or fine tuning the weather details in June and December.
+The following queries will help in better understanding, or fine tuning the weather details in June and December.
 1. A query returning temperatures in the months of June and December from stations grouped by the altitude of their location.\
 For surfers to experience comfortable surfing conditions, temperatures at sea-level is required to be warmer, preferably over 70F. Lower temperatures at higher altitudes is not a contributing factor and can be eliminated.
 
